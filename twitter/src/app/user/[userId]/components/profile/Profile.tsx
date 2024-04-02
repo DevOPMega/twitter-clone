@@ -10,14 +10,13 @@ export default function Profile() {
                     <Image
                         src={"/img/banner-img.png"}
                         alt={"banner image"}
-                        layout="fill"
-                        objectFit="cover"
-                        objectPosition="center"
+                        fill
+                        style={{ objectFit: "cover" }}
                     />
                 </div>
                 <div className="flex flex-col items-center gap-1 -translate-y-8 px-4">
                     <div className="w-12 h-12 rounded-full border border-black overflow-hidden">
-                        <Image 
+                        <Image
                             src={"/img/home.png"}
                             alt={"profile picture"}
                             width={48}

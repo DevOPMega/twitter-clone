@@ -3,7 +3,7 @@ import getUser from "@/app/lib/user/getUser";
 // components 
 import Profile from "./components/profile/Profile";
 import TweetPost from "./components/tweetpost/TweetPost";
-import Posts from "./components/post/Posts";
+import Posts from "./components/post/PostsContainer";
 import Activity from "./components/activity/Activity";
 import Suggestion from "./components/suggestion/Suggestion";
 
