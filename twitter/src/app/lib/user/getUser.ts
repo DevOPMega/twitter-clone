@@ -1,9 +1,9 @@
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
-export default async function getUser(userId: string) {
+export default async function getUser() {
     // Get the cookies 
-    const response = await fetch("http://localhost:5500/api/v1/users/"+userId, {
+    const response = await fetch("http://localhost:5500/api/v1/users/", {
         headers: {Cookie: cookies().toString()}
     });
 

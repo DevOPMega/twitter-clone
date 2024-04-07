@@ -13,7 +13,7 @@ const retweets = require("./subroutes/retweets");
 router.use("/:userId/retweets", retweets);
 
 // post tweet
-router.post("/", authenticateUser, async (req, res) => {
+router.post("/", async (req, res) => {
     const tweetInfo = req.body; 
     // validate the tweet 
     if (validateTweet(tweetInfo)) {
@@ -30,7 +30,7 @@ router.post("/", authenticateUser, async (req, res) => {
 });
 
 // get tweet 
-router.get("/:tweetId", authenticateUser, async (req, res) => {
+router.get("/:tweetId", async (req, res) => {
     const {tweetId} = req.params;
     const tweet = await getTweet(tweetId);
     if (tweet) {
@@ -49,7 +49,7 @@ router.get("/:tweetId", authenticateUser, async (req, res) => {
 });
 
 // get tweet liking users 
-router.get("/:tweetId/likes", authenticateUser, async (req, res) => {
+router.get("/:tweetId/likes", async (req, res) => {
     const { tweetId } = req.params; 
     const tweetLikeUserIds = await getTweetLikingUsers(tweetId);
     if (tweetLikeUserIds) {
@@ -68,7 +68,7 @@ router.get("/:tweetId/likes", authenticateUser, async (req, res) => {
 
 // delete a tweet
 // Todo: delete only user it's own tweets
-router.delete("/:tweetId", authenticateUser, async (req, res) => {
+router.delete("/:tweetId", async (req, res) => {
     const { tweetId } = req.params;
     const deleteInfo = await deleteTweet(tweetId);
 

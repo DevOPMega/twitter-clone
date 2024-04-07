@@ -15,9 +15,7 @@ type Params = {
 
 export default async function Page({params: {userId}}: Params) {
     
-    // const getuser: Promise<any> | undefined = getUser(userId);
-    // const data = await getuser;
-    // const user = data.data[0].user;
+    
     
     return (
         <div className="grid grid-cols-12 my-8 py-4 gap-4">

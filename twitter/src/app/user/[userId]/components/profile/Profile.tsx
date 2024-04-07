@@ -1,7 +1,15 @@
 import Image from "next/image";
 import Link from "next/link";
+import getUser from "@/app/lib/user/getUser";
 
-export default function Profile() {
+export default async function Profile() {
+
+    const getuser: Promise<any> | undefined = getUser();
+    const response = await getuser;
+    const user = response.data.user;
+
+    console.log(user);
+
     return (
         <>
             <div className="w-full border border-black rounded-xl overflow-hidden
@@ -23,11 +31,11 @@ export default function Profile() {
                             height={48}
                         />
                     </div>
-                    <h2 className="text-2xl">Adesh Singh</h2>
-                    <p>@adesh3002</p>
+                    <h2 className="text-2xl">{user.username.firstName + " " + user.username.lastName}</h2>
+                    <p>@{user.userId}</p>
                     <div className="w-full flex justify-between pt-4">
-                        <Link href="/">following 121</Link>
-                        <Link href="/">follower 121</Link>
+                        <Link href="/">following {user.followings}</Link>
+                        <Link href="/">follower {user.followers}</Link>
                     </div>
                 </div>
             </div>

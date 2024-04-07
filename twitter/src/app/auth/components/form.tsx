@@ -1,13 +1,29 @@
 "use client";
 import { useState, FormEvent } from "react";
-import axiosInstance from "@/app/lib/utils";
 import { useRouter } from "next/navigation";
+import { z } from "zod";
 import type { AxiosResponse } from "axios";
+import { registerUser, loginUser } from "@/app/lib/auth/signin";
 
 // Components 
 import SubmitButton from "./SubmitButton";
 import RegisterInput from "./RegisterInputs";
 import LoginInput from "./LoginInputs";
+
+const UserValidationSchemaRegister = z.object({
+    firstName: z.string(),
+    lastName: z.string(),
+    email: z.string().email(),
+    password: z.string()
+});
+
+const UserValidationSchemaLogin = z.object({
+    userId: z.string(),
+    password: z.string()
+});
+
+type UserRegister = z.infer<typeof UserValidationSchemaRegister>;
+type UserLogin= z.infer<typeof UserValidationSchemaLogin>;
 
 
 // Form component: default
@@ -31,17 +47,30 @@ export default function Form() {
 
             if (signMethod === "register") {
                 // Register new user
-                response = await axiosInstance.post(
-                    "/auth/register",
-                    formData
-                );
+                const data: UserRegister = {
+                    firstName: formData.get("firstname") as string,
+                    lastName: formData.get("lastname") as string,
+                    email: formData.get("email") as string,
+                    password: formData.get("password") as string,
+                }
+                const success = UserValidationSchemaRegister.safeParse(data).success;
+                if (!success) {
+
+                }
+                
+                response = await registerUser(formData);
                 console.log(response);
             } else {
                 // Login user 
-                response = await axiosInstance.post(
-                    "/auth/login",
-                    formData
-                );
+                const data: UserLogin = {
+                    userId: formData.get("userId") as string,
+                    password: formData.get("password") as string,
+                }
+                const success = UserValidationSchemaRegister.safeParse(data).success;
+                if (!success) {
+
+                }
+                response = await registerUser(formData);
                 console.log(response);
             }
         } catch (error) {

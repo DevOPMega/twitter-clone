@@ -17,26 +17,28 @@ router.use("/:userId/retweets", retweets);
 router.use("/:userId/timelines", timelines);
 
 // get user profile
-router.get("/:userId", async (req, res) => {
-    const userId = req.params.userId;
+router.get("/", async (req, res) => {
+    // const userId = req.params.userId; 
+    const userId = res.locals.user.userId;
     // check if user Id present in database 
     const user = await checkUserExists(userId);
     if (user) {
         return res.status(200).json({
             status: "ok",
-            data: [{
+            data: {
                 user: {
                     username: user.name,
-                    userId: user.userId, 
+                    userId: user.userId,
                     bio: user.bio,
                     profileImg: user.imgUrl,
                     bannerImg: user.bannerImgUrl,
                     followers: user.followers?.count,
-                    followings: user.following?.count, 
+                    followings: user.following?.count,
                     tweetsId: user.tweetsId,
                     likeTweetsId: user?.likeTweetsId
-                }}
-            ]
+                }
+            }
+
         })
     }
     res.status(404).json({
